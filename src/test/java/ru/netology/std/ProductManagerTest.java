@@ -95,4 +95,23 @@ public class ProductManagerTest {
         Assertions.assertArrayEquals(expected, actual);
     }
 
+    @Test
+    public void shouldSearchSimilarTitles (){
+        ProductRepository repository = new ProductRepository();
+        ProductManager manager = new ProductManager(repository);
+
+        Product item1 = new Book(1, "Супер", 100, "Суперов");
+        Product item2 = new Book(2, "Молодец", 200, "Молодцов");
+        Product item3 = new Smartphone(3, "Iphone13", 300, "AppleReplica");
+        Product item4 = new Smartphone(4, "Iphone13", 1300, "Apple");
+
+        manager.add(item1);
+        manager.add(item2);
+        manager.add(item3);
+        manager.add(item4);
+        Product[] expected = {item3, item4};
+        Product[] actual = manager.searchBy("Iphone13");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
 }
